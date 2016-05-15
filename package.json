@@ -1,0 +1,32 @@
+{
+    "name":        "microkernel-mod-title",
+    "version":     "0.9.0",
+    "description": "Microkernel module for setting process title",
+    "keywords": [
+        "microkernel", "module", "title"
+    ],
+    "repository": {
+        "type": "git",
+        "url":  "https://github.com/rse/microkernel-mod-title.git"
+    },
+    "author": {
+        "name":  "Ralf S. Engelschall",
+        "email": "rse@engelschall.com",
+        "url":   "http://engelschall.com"
+    },
+    "license":  "MIT",
+    "homepage": "https://github.com/rse/microkernel-mod-title",
+    "bugs":     "https://github.com/rse/microkernel-mod-title/issues",
+    "dependencies": {
+        "sprintfjs":                "~1.2.2"
+    },
+    "peerDependencies": {
+        "microkernel":              "*",
+        "microkernel-mod-ctx":      "*",
+        "microkernel-mod-logger":   "*"
+    },
+    "scripts": {
+        "prepublish": "jshint microkernel-mod-title.js && babel --presets es2015 microkernel-mod-title.js >microkernel-mod-title.js5"
+    },
+    "main": "microkernel-mod-title.js5"
+}
