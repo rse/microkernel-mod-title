@@ -1,6 +1,6 @@
 {
     "name":        "microkernel-mod-title",
-    "version":     "0.9.1",
+    "version":     "0.9.2",
     "description": "Microkernel module for setting process title",
     "keywords": [
         "microkernel", "module", "title"
