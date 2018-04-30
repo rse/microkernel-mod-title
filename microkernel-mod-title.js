@@ -31,12 +31,20 @@ export default class Module {
             name:  "microkernel-mod-title",
             tag:   "TITLE",
             group: "BOOT",
-            after: [ "CTX", "LOGGER" ]
+            after: [ "CTX", "LOGGER", "OPTIONS" ]
         }
+    }
+    latch (kernel) {
+        kernel.latch("options:options", (options) => {
+            options.push({
+                name: "title-tag", type: "string", "default": "",
+                help: "Set an identifying process title tag." })
+        })
     }
     prepare (kernel) {
         let proginfo = kernel.rs("ctx:info")
         let procmode = kernel.rs("ctx:procmode")
+        let proctag  = kernel.rs("options:options").title_tag
 
         /*  give initial startup hint  */
         if (procmode === "standalone" || procmode === "master") {
@@ -48,14 +56,19 @@ export default class Module {
                 sprintf("executing under OS %s/%s %s with %d CPUs of host %s",
                     os.platform(), os.arch(), os.release().replace(/.*?(\d+\.\d+).*/, "$1"),
                     os.cpus().length, os.hostname()))
-            kernel.sv("log", "title", "info",
-                sprintf("operating under %s role", procmode.toUpperCase()))
+            let info = sprintf("operating under %s role", procmode.toUpperCase())
+            if (proctag !== "")
+                info += sprintf(" and \"%s\" tag", proctag)
+            kernel.sv("log", "title", "info", info)
         }
     }
     start (kernel) {
         /*  provide a meaningful process title  */
         let proginfo = kernel.rs("ctx:info")
+        let proctag  = kernel.rs("options:options").title_tag
         let title = proginfo.app
+        if (proctag !== "")
+            title += sprintf(" [%s]", proctag)
         title = kernel.hook("title:title", "pass", title)
         process.title = title
     }
