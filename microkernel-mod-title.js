@@ -51,10 +51,13 @@ export default class Module {
             kernel.sv("log", "title", "info",
                 sprintf("operating under %s role", procmode.toUpperCase()))
         }
-
+    }
+    start (kernel) {
         /*  provide a meaningful process title  */
-        let title = sprintf("%s", proginfo.app)
+        let proginfo = kernel.rs("ctx:info")
+        let title = proginfo.app
         title = kernel.hook("title:title", "pass", title)
         process.title = title
     }
 }
+
