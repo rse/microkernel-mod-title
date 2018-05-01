@@ -21,18 +21,26 @@
         "sprintfjs":                "~1.2.9"
     },
     "devDependencies": {
-        "babel-cli":                "~6.26.0",
-        "babel-preset-es2015":      "~6.24.1",
-        "babel-eslint":             "~8.2.3",
-        "eslint":                   "~4.19.1"
+        "babel-cli":                "6.26.0",
+        "babel-preset-es2015":      "6.24.1",
+        "babel-eslint":             "8.2.3",
+        "eslint":                   "4.19.1",
+        "eslint-config-standard":   "11.0.0",
+        "eslint-plugin-standard":   "3.1.0",
+        "eslint-plugin-promise":    "3.7.0",
+        "eslint-plugin-import":     "2.11.0",
+        "eslint-plugin-node":       "6.0.1"
     },
     "peerDependencies": {
         "microkernel":              "*",
         "microkernel-mod-ctx":      "*",
         "microkernel-mod-logger":   "*"
     },
-    "scripts": {
-        "prepublish": "eslint --config eslint.json microkernel-mod-title.js && babel --presets es2015 microkernel-mod-title.js >microkernel-mod-title.js5"
+    "engines": {
+        "node":                     ">=8.0.0"
     },
-    "main": "microkernel-mod-title.js5"
+    "scripts": {
+        "prepublishOnly": "eslint --config eslint.yaml microkernel-mod-title.js"
+    },
+    "main": "microkernel-mod-title.js"
 }
