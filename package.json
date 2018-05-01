@@ -18,7 +18,6 @@
     "homepage": "https://github.com/rse/microkernel-mod-title",
     "bugs":     "https://github.com/rse/microkernel-mod-title/issues",
     "dependencies": {
-        "sprintfjs":                "~1.2.9"
     },
     "devDependencies": {
         "babel-cli":                "6.26.0",

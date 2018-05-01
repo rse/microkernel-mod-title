@@ -22,10 +22,11 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-import os      from "os"
-import sprintf from "sprintfjs"
+/*  external requirements  */
+const os = require("os")
 
-export default class Module {
+/*  the Microkernel module  */
+class Module {
     get module () {
         return {
             name:  "microkernel-mod-title",
@@ -49,16 +50,19 @@ export default class Module {
         /*  give initial startup hint  */
         if (procmode === "standalone" || procmode === "master") {
             kernel.sv("log", "title", "info",
-                sprintf("starting application %s", proginfo.app))
+                `starting application ${proginfo.app}`)
             kernel.sv("log", "title", "info",
-                sprintf("running on platform %s with engine %s", proginfo.runtime, proginfo.engine))
+                `running on platform ${proginfo.runtime} with engine ${proginfo.engine}`)
+            let platform = os.platform()
+            let arch     = os.arch()
+            let release  = os.release().replace(/.*?(\d+\.\d+).*/, "$1")
+            let cpus     = os.cpus().length
+            let host     = os.hostname()
             kernel.sv("log", "title", "info",
-                sprintf("executing under OS %s/%s %s with %d CPUs of host %s",
-                    os.platform(), os.arch(), os.release().replace(/.*?(\d+\.\d+).*/, "$1"),
-                    os.cpus().length, os.hostname()))
-            let info = sprintf("operating under %s role", procmode.toUpperCase())
+                `executing under OS ${platform}/${arch} ${release} with ${cpus} CPUs of host ${host}`)
+            let info = `operating under ${procmode.toUpperCase()} role`
             if (proctag !== "")
-                info += sprintf(" and \"%s\" tag", proctag)
+                info += ` and "${proctag}" tag`
             kernel.sv("log", "title", "info", info)
         }
     }
@@ -68,9 +72,12 @@ export default class Module {
         let proctag  = kernel.rs("options:options").title_tag
         let title = proginfo.app
         if (proctag !== "")
-            title += sprintf(" [%s]", proctag)
+            title += ` [${proctag}]`
         title = kernel.hook("title:title", "pass", title)
         process.title = title
     }
 }
+
+/*  export the Microkernel module  */
+module.exports = Module
 
