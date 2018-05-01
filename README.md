@@ -23,7 +23,7 @@ Usage
 
 ```shell
 $ npm install microkernel
-$ npm install microkernel-mod-ctx microkernel-mod-logging
+$ npm install microkernel-mod-ctx microkernel-mod-logging microkernel-mod-options
 $ npm install microkernel-mod-title
 ```
 
@@ -37,7 +37,7 @@ kernel.load("microkernel-mod-title")
 License
 -------
 
-Copyright (c) 2016 Ralf S. Engelschall (http://engelschall.com/)
+Copyright (c) 2016-2018 Ralf S. Engelschall (http://engelschall.com/)
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
