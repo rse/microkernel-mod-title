@@ -43,9 +43,9 @@ class Module {
         })
     }
     prepare (kernel) {
-        let proginfo = kernel.rs("ctx:info")
-        let procmode = kernel.rs("ctx:procmode")
-        let proctag  = kernel.rs("options:options").title_tag
+        const proginfo = kernel.rs("ctx:info")
+        const procmode = kernel.rs("ctx:procmode")
+        const proctag  = kernel.rs("options:options").title_tag
 
         /*  give initial startup hint  */
         if (procmode === "standalone" || procmode === "master") {
@@ -53,11 +53,11 @@ class Module {
                 `starting application ${proginfo.app}`)
             kernel.sv("log", "title", "info",
                 `running on platform ${proginfo.runtime} with engine ${proginfo.engine}`)
-            let platform = os.platform()
-            let arch     = os.arch()
-            let release  = os.release().replace(/.*?(\d+\.\d+).*/, "$1")
-            let cpus     = os.cpus().length
-            let host     = os.hostname()
+            const platform = os.platform()
+            const arch     = os.arch()
+            const release  = os.release().replace(/.*?(\d+\.\d+).*/, "$1")
+            const cpus     = os.cpus().length
+            const host     = os.hostname()
             kernel.sv("log", "title", "info",
                 `executing under OS ${platform}/${arch} ${release} with ${cpus} CPUs of host ${host}`)
             let info = `operating under ${procmode.toUpperCase()} role`
@@ -68,8 +68,8 @@ class Module {
     }
     start (kernel) {
         /*  provide a meaningful process title  */
-        let proginfo = kernel.rs("ctx:info")
-        let proctag  = kernel.rs("options:options").title_tag
+        const proginfo = kernel.rs("ctx:info")
+        const proctag  = kernel.rs("options:options").title_tag
         let title = proginfo.app
         if (proctag !== "")
             title += ` [${proctag}]`
